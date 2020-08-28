@@ -56,7 +56,7 @@ public class Controller {
 		StatusDto statusDto = new StatusDto();
 
 //		getAge
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy");
 		LocalDate birthdate = LocalDate.parse(dto.getTgl(), formatter);
 		LocalDate now = LocalDate.now();
 		Period period = Period.between(birthdate, now);

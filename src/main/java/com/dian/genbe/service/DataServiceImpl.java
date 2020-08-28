@@ -31,12 +31,12 @@ public class DataServiceImpl implements DataService {
 		person.setAlamat(dto.getAddress());
 		personRepository.save(person);
 		dto.setIdPerson(person.getIdPerson());
-		
+
 //		convert String to Date
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy");
 		Date date = Date
 				.from(LocalDate.parse(dto.getTgl(), formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
-		
+
 		Biodata biodata = new Biodata();
 		biodata.setPerson(person);
 		biodata.setIdBio(dto.getIdBio());
@@ -46,5 +46,4 @@ public class DataServiceImpl implements DataService {
 		biodataRepository.save(biodata);
 		return dto;
 	}
-
 }
