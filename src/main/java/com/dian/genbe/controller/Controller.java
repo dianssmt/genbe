@@ -7,7 +7,6 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,7 @@ import com.dian.genbe.model.entity.Person;
 import com.dian.genbe.repository.BiodataRepository;
 import com.dian.genbe.repository.PendidikanRepository;
 import com.dian.genbe.repository.PersonRepository;
+import com.dian.genbe.service.DataService;
 
 @RestController
 @RequestMapping("/data") // localhost:9090/data
@@ -46,7 +46,11 @@ public class Controller {
 		this.pendidikanRepository = pendidikanRepository;
 	}
 
+	@Autowired
+	private DataService dataService;
+
 //	localhost:9090/data
+//	transactional service
 	@PostMapping
 	public StatusDto insert(@RequestBody Output1Dto dto) {
 		StatusDto statusDto = new StatusDto();
@@ -59,13 +63,7 @@ public class Controller {
 		Integer age = period.getYears();
 
 		if (age >= 30 && dto.getNik().length() == 16) {
-			Person person = convertToEntityPerson(dto);
-			personRepository.save(person);
-
-			Biodata biodata = convertToEntityBiodata(dto);
-			biodata.setPerson(person);
-			biodataRepository.save(biodata);
-
+			dataService.insertBiodataPerson(dto);
 			statusDto.setStatus("true");
 			statusDto.setMessage("data berhasil masuk");
 		} else if (age < 30 && dto.getNik().length() != 16) {
@@ -80,28 +78,6 @@ public class Controller {
 			statusDto.setMessage("data gagal masuk, jumlah digit nik tidak sama dengan 16");
 		}
 		return statusDto;
-	}
-
-	private Person convertToEntityPerson(Output1Dto dto) {
-		Person person = new Person();
-		person.setIdPerson(dto.getIdPerson());
-		person.setNik(dto.getNik());
-		person.setNama(dto.getName());
-		person.setAlamat(dto.getAddress());
-		return person;
-	}
-
-	private Biodata convertToEntityBiodata(Output1Dto dto) {
-//		convert String to Date
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMMMMMMM-yyyy");
-		Date date = Date
-				.from(LocalDate.parse(dto.getTgl(), formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Biodata biodata = new Biodata();
-		biodata.setIdBio(dto.getIdBio());
-		biodata.setNoHp(dto.getHp());
-		biodata.setTanggalLahir(date);
-		biodata.setTempatLahir(dto.getTempatLahir());
-		return biodata;
 	}
 
 //	localhost:9090/data/1234567890123456
@@ -158,7 +134,7 @@ public class Controller {
 	@PostMapping("/pendidikan")
 	public StatusDto output3Dto(@RequestParam Integer idPerson, @RequestBody List<Output3Dto> output3Dto) {
 		StatusDto statusDto = new StatusDto();
-		
+
 		try {
 			for (Output3Dto output : output3Dto) {
 				Pendidikan pendidikan = new Pendidikan();
@@ -167,7 +143,7 @@ public class Controller {
 				pendidikan.setInstitusi(output.getInstitusi());
 				pendidikan.setTahunMasuk(output.getMasuk());
 				pendidikan.setTahunLulus(output.getLulus());
-				
+
 				if (personRepository.findById(idPerson).isPresent()) {
 					Person person = personRepository.findById(idPerson).get();
 					pendidikan.setPerson(person);

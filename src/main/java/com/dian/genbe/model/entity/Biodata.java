@@ -18,13 +18,13 @@ public class Biodata {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_bio")
 	private Integer idBio;
-	
+
 	@Column(name = "nohp", length = 16)
 	private String noHp;
-	
+
 	@Column(name = "tanggal_lahir", nullable = false)
 	private Date tanggalLahir;
-	
+
 	@Column(name = "tempat_lahir", length = 50)
 	private String tempatLahir;
 
@@ -72,8 +72,4 @@ public class Biodata {
 		this.person = person;
 	}
 
-
-	
-	
-	
 }

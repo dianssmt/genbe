@@ -16,20 +16,20 @@ public class Pendidikan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pendidikan")
 	private Integer idPendidikan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_person", nullable = false)
 	private Person person;
-	
+
 	@Column(name = "jenjang", length = 10, nullable = false)
 	private String jenjang;
-	
+
 	@Column(name = "institusi", length = 50, nullable = false)
 	private String institusi;
-	
+
 	@Column(name = "tahun_masuk", length = 10, nullable = false)
 	private String tahunMasuk;
-	
+
 	@Column(name = "tahun_lulus", length = 10, nullable = false)
 	private String tahunLulus;
 
@@ -40,7 +40,6 @@ public class Pendidikan {
 	public void setIdPendidikan(Integer idPendidikan) {
 		this.idPendidikan = idPendidikan;
 	}
-
 
 	public Person getPerson() {
 		return person;
@@ -81,6 +80,5 @@ public class Pendidikan {
 	public void setTahunLulus(String tahunLulus) {
 		this.tahunLulus = tahunLulus;
 	}
-
 
 }

@@ -9,7 +9,6 @@ public class DataDto {
 	private String tempatLahir;
 	private Integer umur;
 	private String pendidikanTerakhir;
-	
 
 	public String getNik() {
 		return nik;
@@ -42,7 +41,6 @@ public class DataDto {
 	public void setHp(String hp) {
 		this.hp = hp;
 	}
-
 
 	public String getTgl() {
 		return tgl;

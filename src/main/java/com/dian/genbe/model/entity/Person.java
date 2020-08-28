@@ -14,13 +14,13 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_person")
 	private Integer idPerson;
-	
+
 	@Column(name = "nik", length = 16, unique = true, nullable = false)
 	private String nik;
-	
+
 	@Column(name = "nama", length = 50)
 	private String nama;
-	
+
 	@Column(name = "alamat", length = 255)
 	private String alamat;
 
@@ -56,5 +56,4 @@ public class Person {
 		this.alamat = alamat;
 	}
 
-	
 }
