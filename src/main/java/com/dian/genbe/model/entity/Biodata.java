@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
@@ -26,7 +24,6 @@ public class Biodata {
 	private String noHp;
 
 	@Column(name = "tanggal_lahir", nullable = false)
-	@Temporal(TemporalType.DATE)
 	private Date tanggalLahir;
 
 	@Column(name = "tempat_lahir", length = 50)
