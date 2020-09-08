@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base}"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Biodata</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Biodata</a></li>
+            <li class="breadcrumb-item active">Kelola</li>
+        </ol>
+    </div>
+</div>
+
+<div layout:fragment="content-body">
+<div class="col-12">
+        <div class="card card-dark">
+            <div class="card-header">
+                <h3 class="card-title">List Biodata</h3>
+                <button class="float-right btn btn-orange" id="btn-tambah-biodata"><i class="fas fa-user-plus"></i></button>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableBiodata"
+                       style="width:100%"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+
+<div class="modal fade" id="modal-biodata">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Biodata</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+    <form role="form" id="biodataForm">
+    <input name="id" type="hidden"/>
+                <div class="form-group">
+                    <label>NIK</label> <input type="text" class="form-control" name="nik" id="nik"
+                        placeholder="Masukkan NIK" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Lengkap</label> <input type="text" class="form-control" name="nama" id="nama"
+                        placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea class="form-control" rows="2" id="alamat" name="alamat" placeholder="Masukkan alamat" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>No. HP</label> <input type="text" class="form-control" name="noHp" id="noHp"
+                        placeholder="Masukkan no. HP" required>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Lahir</label> <input type="date" class="form-control" name="tanggalLahir"
+                        id="tanggalLahir" required>
+                </div>
+                <div class="form-group">
+                    <label>Tempat Lahir</label> <input type="text" class="form-control" name="tempatLahir"
+                        id="tempatLahir" placeholder="Masukkan tempat lahir" required>
+                </div>
+            </form>
+            </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-orange" id="btn-save-biodata" type="button">Save</button>
+                </div>
+                            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</div>
+
+        
+<th:block layout:fragment="add-scripts">
+    <script src="/../../dist/js/biodata.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        tableBiodata.create();
+
+        $('#btn-tambah-biodata').click(function () {
+            formBiodata.resetForm();
+            $('#modal-biodata').modal('show')
+        });
+
+        $('#btn-save-biodata').click(function () {
+            formBiodata.saveForm()
+        })
+
+    </script>
+</th:block>
+
+</html>

@@ -4,8 +4,8 @@ public class Output3Dto {
 	private Integer idPendidikan;
 	private String jenjang;
 	private String institusi;
-	private String masuk;
-	private String lulus;
+	private String tahunMasuk;
+	private String tahunLulus;
 
 	public Integer getIdPendidikan() {
 		return idPendidikan;
@@ -31,20 +31,20 @@ public class Output3Dto {
 		this.institusi = institusi;
 	}
 
-	public String getMasuk() {
-		return masuk;
+	public String getTahunMasuk() {
+		return tahunMasuk;
 	}
 
-	public void setMasuk(String masuk) {
-		this.masuk = masuk;
+	public void setTahunMasuk(String tahunMasuk) {
+		this.tahunMasuk = tahunMasuk;
 	}
 
-	public String getLulus() {
-		return lulus;
+	public String getTahunLulus() {
+		return tahunLulus;
 	}
 
-	public void setLulus(String lulus) {
-		this.lulus = lulus;
+	public void setTahunLulus(String tahunLulus) {
+		this.tahunLulus = tahunLulus;
 	}
 
 }

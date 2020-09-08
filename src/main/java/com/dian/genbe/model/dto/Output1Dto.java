@@ -1,13 +1,15 @@
 package com.dian.genbe.model.dto;
 
+import java.sql.Date;
+
 public class Output1Dto {
 	private Integer idPerson;
 	private Integer idBio;
 	private String nik;
-	private String name;
-	private String address;
-	private String hp;
-	private String tgl;
+	private String nama;
+	private String alamat;
+	private String noHp;
+	private Date tanggalLahir;
 	private String tempatLahir;
 
 	public Integer getIdPerson() {
@@ -34,36 +36,37 @@ public class Output1Dto {
 		this.nik = nik;
 	}
 
-	public String getName() {
-		return name;
+	public String getNama() {
+		return nama;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNama(String nama) {
+		this.nama = nama;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getAlamat() {
+		return alamat;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAlamat(String alamat) {
+		this.alamat = alamat;
 	}
 
-	public String getHp() {
-		return hp;
+	public String getNoHp() {
+		return noHp;
 	}
 
-	public void setHp(String hp) {
-		this.hp = hp;
+	public void setNoHp(String noHp) {
+		this.noHp = noHp;
 	}
 
-	public String getTgl() {
-		return tgl;
+
+	public Date getTanggalLahir() {
+		return tanggalLahir;
 	}
 
-	public void setTgl(String tgl) {
-		this.tgl = tgl;
+	public void setTanggalLahir(Date tanggalLahir) {
+		this.tanggalLahir = tanggalLahir;
 	}
 
 	public String getTempatLahir() {
@@ -74,4 +77,6 @@ public class Output1Dto {
 		this.tempatLahir = tempatLahir;
 	}
 
+
+	
 }
