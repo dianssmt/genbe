@@ -1,3 +1,4 @@
+//  get all data
 var tableBiodata = {
     create: function () {
         // jika table tersebut datatable, maka clear and dostroy
@@ -58,11 +59,10 @@ var tableBiodata = {
                 console.log(err);
             }
         });
-
-
     }
 };
 
+// post biodata
 var formBiodata = {
     resetForm: function () {
         $('#biodataForm')[0].reset();
@@ -90,7 +90,7 @@ var formBiodata = {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: result[0].message,
+                        text: result.message,
                     })
 
                 }
@@ -100,27 +100,29 @@ var formBiodata = {
             }
         });
 
-    }, setEditData: function (idCabang) {
-        formBiodata.resetForm();
+    },
+    // setEditData: function (idCabang) {
+    //     formBiodata.resetForm();
 
-        $.ajax({
-            url: '/api/biodata/' + idCabang,
-            method: 'get',
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (res, status, xhr) {
-                if (xhr.status == 200 || xhr.status == 201) {
-                    $('#form-biodata').fromJSON(JSON.stringify(res));
-                    $('#modal-biodata').modal('show')
-                } else {
-                }
-            },
-            erorrr: function (err) {
-                console.log(err);
-            }
-        });
-    }
+    //     $.ajax({
+    //         url: '/api/biodata/' + idCabang,
+    //         method: 'get',
+    //         contentType: 'application/json',
+    //         dataType: 'json',
+    //         success: function (res, status, xhr) {
+    //             if (xhr.status == 200 || xhr.status == 201) {
+    //                 $('#form-biodata').fromJSON(JSON.stringify(res));
+    //                 $('#modal-biodata').modal('show')
+    //             } else {
+    //             }
+    //         },
+    //         erorrr: function (err) {
+    //             console.log(err);
+    //         }
+    //     });
 };
+
+// get biodata
 var tableBiodataNik = {
     create: function (nik) {
         // jika table tersebut datatable, maka clear and dostroy
@@ -131,13 +133,19 @@ var tableBiodataNik = {
         }
 
         $.ajax({
-            url: '/data/'+nik,
+            url: '/data/' + nik,
             method: 'get',
             contentType: 'application/json',
             success: function (result) {
                 console.log(result);
-                if (result[0].status=='true') {
+                if (result[0].status == 'true') {
                     $('#tableBiodataNik').DataTable({
+                        "paging": false,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": false,
+                        "info": false,
+                        "autoWidth": false,
                         data: [result[0].data],
                         columns: [
                             {
@@ -173,7 +181,7 @@ var tableBiodataNik = {
                                 data: "pendidikanTerakhir"
                             },
                         ]
-                        
+
                     });
                 } else {
                     Swal.fire({
@@ -189,5 +197,75 @@ var tableBiodataNik = {
         });
 
 
+    }
+};
+var formPendidikan = {
+    create: function () {
+        var dataResult = getJsonForm($("#pendidikanForm").serializeArray(), true);
+        listpendidikan.push(dataResult);
+        console.log(dataResult);
+        $('#modal-pendidikan').modal('hide')
+
+        // jika table tersebut datatable, maka clear and dostroy
+        if ($.fn.DataTable.isDataTable('#tablePendidikan')) {
+            //table yg sudah dibentuk menjadi datatable harus d rebuild lagi untuk di instantiasi ulang
+            $('#tablePendidikan').DataTable().clear();
+            $('#tablePendidikan').DataTable().destroy();
+        }
+        $('#tablePendidikan').DataTable({
+            data: listpendidikan,
+            columns: [
+                {
+                    title: "Jenjang",
+                    data: "jenjang"
+                },
+                {
+                    title: "Intitusi",
+                    data: "institusi"
+                },
+                {
+                    title: "Tahun Masuk",
+                    data: "tahunMasuk"
+                },
+                {
+                    title: "Tahun Lulus",
+                    data: "tahunLulus"
+                }
+            ]
+
+        });
+    },
+    resetForm: function () {
+        $('#pendidikanForm')[0].reset();
+    },
+    saveForm: function (idPerson, listpendidikan) {
+        $.ajax({
+            url: '/data/pendidikan?idPerson=' + idPerson,
+            method: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(listpendidikan),
+            success: function (result) {
+                if (result.status == 'true') {
+                    Swal.fire({
+                        title: 'Sukses!',
+                        text: 'Data berhasil masuk!',
+                        icon: 'success',
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.message,
+                    })
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        $('#tablePendidikan').DataTable().clear();
+        $('#tablePendidikan').DataTable().destroy();
+        $('#tablePendidikan').empty();
     }
 };

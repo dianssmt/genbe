@@ -123,7 +123,7 @@ public class RestApiController {
 			output.add(statusDto);
 		} else {
 			StatusDto statusDto = new StatusDto();
-			statusDto.setStatus("true");
+			statusDto.setStatus("false");
 			statusDto.setMessage("data dengan nik " + nik + " tidak ditemukan");
 			output.add(statusDto);
 		}
